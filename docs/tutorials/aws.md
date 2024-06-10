@@ -211,10 +211,12 @@ aws iam attach-user-policy --user-name "externaldns" --policy-arn $POLICY_ARN
 
 ```bash
 SECRET_ACCESS_KEY=$(aws iam create-access-key --user-name "externaldns")
-cat <<-EOF > /local/path/to/credentials
+ACCESS_KEY_ID=$(echo $SECRET_ACCESS_KEY | jq -r '.AccessKey.AccessKeyId')
+
+cat <<-EOF > credentials
 
 [default]
-aws_access_key_id = $(echo $SECRET_ACCESS_KEY | jq -r '.AccessKey.AccessKeyId')
+aws_access_key_id = $(echo $ACCESS_KEY_ID)
 aws_secret_access_key = $(echo $SECRET_ACCESS_KEY | jq -r '.AccessKey.SecretAccessKey')
 EOF
 ```
@@ -390,6 +392,24 @@ kubectl get namespaces | grep -q $EXTERNALDNS_NS || \
   kubectl create namespace $EXTERNALDNS_NS
 ```
 
+## Using Helm (with OIDC)
+
+Create a values.yaml file to configure ExternalDNS:
+
+```shell
+provider:
+  name: aws
+env:
+  - name: AWS_DEFAULT_REGION
+    value: us-east-1 # change to region where EKS is installed
+```
+
+Finally, install the ExternalDNS chart with Helm using the configuration specified in your values.yaml file:
+
+```shell
+helm upgrade --install external-dns external-dns/external-dns --values values.yaml
+```
+
 ### Manifest (for clusters without RBAC enabled)
 
 Save the following below as `externaldns-no-rbac.yaml`.
@@ -414,7 +434,7 @@ spec:
     spec:
       containers:
         - name: external-dns
-          image: registry.k8s.io/external-dns/external-dns:v0.14.0
+          image: registry.k8s.io/external-dns/external-dns:v0.14.1
           args:
             - --source=service
             - --source=ingress
@@ -509,7 +529,7 @@ spec:
       serviceAccountName: external-dns
       containers:
         - name: external-dns
-          image: registry.k8s.io/external-dns/external-dns:v0.14.0
+          image: registry.k8s.io/external-dns/external-dns:v0.14.1
           args:
             - --source=service
             - --source=ingress
@@ -910,13 +930,17 @@ eksctl delete cluster --name $EKS_CLUSTER_NAME --region $EKS_CLUSTER_REGION
 Give ExternalDNS some time to clean up the DNS records for you. Then delete the hosted zone if you created one for the testing purpose.
 
 ```bash
-aws route53 delete-hosted-zone --id $NODE_ID # e.g /hostedzone/ZEWFWZ4R16P7IB
+aws route53 delete-hosted-zone --id $ZONE_ID # e.g /hostedzone/ZEWFWZ4R16P7IB
 ```
 
 If IAM user credentials were used, you can remove the user with:
 
 ```bash
 aws iam detach-user-policy --user-name "externaldns" --policy-arn $POLICY_ARN
+
+# If static credentials were used
+aws iam delete-access-key --user-name "externaldns" --access-key-id $ACCESS_KEY_ID
+
 aws iam delete-user --user-name "externaldns"
 ```
 
@@ -971,7 +995,7 @@ A simple way to implement randomised startup is with an init container:
     spec:
       initContainers:
       - name: init-jitter
-        image: registry.k8s.io/external-dns/external-dns:v0.14.0
+        image: registry.k8s.io/external-dns/external-dns:v0.14.1
         command:
         - /bin/sh
         - -c
