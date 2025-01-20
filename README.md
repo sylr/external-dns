@@ -74,20 +74,26 @@ See PR #3063 for all the discussions about it.
 
 Known providers using webhooks:
 
-| Provider |  Repo |
-| -------- | ----------- |
-| Adguard Home Provider | https://github.com/muhlba91/external-dns-provider-adguard |
-| Anexia | https://github.com/ProbstenHias/external-dns-anexia-webhook |
-| Bizfly Cloud | https://github.com/bizflycloud/external-dns-bizflycloud-webhook |
-| Gcore | https://github.com/G-Core/external-dns-gcore-webhook |
-| GleSYS | https://github.com/glesys/external-dns-glesys |
-| Hetzner | https://github.com/mconfalonieri/external-dns-hetzner-webhook |
-| IONOS | https://github.com/ionos-cloud/external-dns-ionos-webhook |
-| Infoblox | https://github.com/AbsaOSS/external-dns-infoblox-webhook |
-| Netcup | https://github.com/mrueg/external-dns-netcup-webhook |
-| RouterOS | https://github.com/benfiola/external-dns-routeros-provider |
-| STACKIT | https://github.com/stackitcloud/external-dns-stackit-webhook |
-| Unifi | https://github.com/kashalls/external-dns-unifi-webhook |
+| Provider              | Repo                                                                 |
+|-----------------------|----------------------------------------------------------------------|
+| Abion                 | https://github.com/abiondevelopment/external-dns-webhook-abion       |
+| Adguard Home Provider | https://github.com/muhlba91/external-dns-provider-adguard            |
+| Anexia                | https://github.com/ProbstenHias/external-dns-anexia-webhook          |
+| Bizfly Cloud          | https://github.com/bizflycloud/external-dns-bizflycloud-webhook      |
+| Efficient IP          | https://github.com/EfficientIP-Labs/external-dns-efficientip-webhook |
+| Gcore                 | https://github.com/G-Core/external-dns-gcore-webhook                 |
+| GleSYS                | https://github.com/glesys/external-dns-glesys                        |
+| Hetzner               | https://github.com/mconfalonieri/external-dns-hetzner-webhook        |
+| Huawei Cloud          | https://github.com/setoru/external-dns-huaweicloud-webhook |
+| IONOS                 | https://github.com/ionos-cloud/external-dns-ionos-webhook            |
+| Infoblox              | https://github.com/AbsaOSS/external-dns-infoblox-webhook             |
+| Mikrotik              | https://github.com/mirceanton/external-dns-provider-mikrotik         |
+| Netcup                | https://github.com/mrueg/external-dns-netcup-webhook                 |
+| Netic                 | https://github.com/neticdk/external-dns-tidydns-webhook              |
+| RouterOS              | https://github.com/benfiola/external-dns-routeros-provider           |
+| STACKIT               | https://github.com/stackitcloud/external-dns-stackit-webhook         |
+| Unifi                 | https://github.com/kashalls/external-dns-unifi-webhook               |
+| Vultr                 | https://github.com/vultr/external-dns-vultr-webhook                  |
 
 ## Status of in-tree providers
 
@@ -123,7 +129,6 @@ The following table clarifies the current status of the providers according to t
 | RFC2136 | Alpha | |
 | NS1 | Alpha | |
 | TransIP | Alpha | |
-| RancherDNS | Alpha | |
 | OVH | Alpha | |
 | Scaleway DNS | Alpha | @Sh4d1 |
 | UltraDNS | Alpha | |
@@ -160,7 +165,7 @@ The following tutorials are provided:
 * AWS
 	* [AWS Load Balancer Controller](docs/tutorials/aws-load-balancer-controller.md)
 	* [Route53](docs/tutorials/aws.md)
-		* [Same domain for public and private Route53 zones](docs/tutorials/public-private-route53.md)
+		* [Same domain for public and private Route53 zones](docs/tutorials/aws-public-private-route53.md)
 	* [Cloud Map](docs/tutorials/aws-sd.md)
 	* [Kube Ingress AWS Controller](docs/tutorials/kube-ingress-aws.md)
 * [Azure DNS](docs/tutorials/azure.md)
@@ -174,19 +179,17 @@ The following tutorials are provided:
 * [ExternalName Services](docs/tutorials/externalname.md)
 * Google Kubernetes Engine
 	* [Using Google's Default Ingress Controller](docs/tutorials/gke.md)
-	* [Using the Nginx Ingress Controller](docs/tutorials/nginx-ingress.md)
+	* [Using the Nginx Ingress Controller](docs/tutorials/gke-nginx.md)
 * [Headless Services](docs/tutorials/hostport.md)
-* [Istio Gateway Source](docs/tutorials/istio.md)
-* [Kubernetes Security Context](docs/tutorials/security-context.md)
+* [Istio Gateway Source](docs/sources/istio.md)
 * [Linode](docs/tutorials/linode.md)
-* [Nginx Ingress Controller](docs/tutorials/nginx-ingress.md)
 * [NS1](docs/tutorials/ns1.md)
-* [NS Record Creation with CRD Source](docs/tutorials/ns-record.md)
-* [MX Record Creation with CRD Source](docs/tutorials/mx-record.md)
+* [NS Record Creation with CRD Source](docs/sources/ns-record.md)
+* [MX Record Creation with CRD Source](docs/sources/mx-record.md)
+* [TXT Record Creation with CRD Source](docs/sources/txt-record.md)
 * [OpenStack Designate](docs/tutorials/designate.md)
 * [Oracle Cloud Infrastructure (OCI) DNS](docs/tutorials/oracle.md)
 * [PowerDNS](docs/tutorials/pdns.md)
-* [RancherDNS (RDNS)](docs/tutorials/rdns.md)
 * [RFC2136](docs/tutorials/rfc2136.md)
 * [TransIP](docs/tutorials/transip.md)
 * [OVH](docs/tutorials/ovh.md)
@@ -195,7 +198,7 @@ The following tutorials are provided:
 * [GoDaddy](docs/tutorials/godaddy.md)
 * [Gandi](docs/tutorials/gandi.md)
 * [IBM Cloud](docs/tutorials/ibmcloud.md)
-* [Nodes as source](docs/tutorials/nodes.md)
+* [Nodes as source](docs/sources/nodes.md)
 * [TencentCloud](docs/tutorials/tencentcloud.md)
 * [Plural](docs/tutorials/plural.md)
 * [Pi-hole](docs/tutorials/pihole.md)

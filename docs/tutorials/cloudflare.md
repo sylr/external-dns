@@ -1,4 +1,4 @@
-# Setting up ExternalDNS for Services on Cloudflare
+# Cloudflare DNS
 
 This tutorial describes how to setup ExternalDNS for usage within a Kubernetes cluster using Cloudflare DNS.
 
@@ -121,7 +121,7 @@ spec:
     spec:
       containers:
         - name: external-dns
-          image: registry.k8s.io/external-dns/external-dns:v0.14.2
+          image: registry.k8s.io/external-dns/external-dns:v0.15.0
           args:
             - --source=service # ingress is also possible
             - --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
@@ -129,6 +129,7 @@ spec:
             - --provider=cloudflare
             - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
             - --cloudflare-dns-records-per-page=5000 # (optional) configure how many DNS records to fetch per request
+            - --cloudflare-region-key="eu" # (optional) configure which region can decrypt HTTPS requests
       env:
         - name: CF_API_KEY
           valueFrom:
@@ -196,7 +197,7 @@ spec:
       serviceAccountName: external-dns
       containers:
         - name: external-dns
-          image: registry.k8s.io/external-dns/external-dns:v0.14.2
+          image: registry.k8s.io/external-dns/external-dns:v0.15.0
           args:
             - --source=service # ingress is also possible
             - --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
@@ -204,6 +205,7 @@ spec:
             - --provider=cloudflare
             - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
             - --cloudflare-dns-records-per-page=5000 # (optional) configure how many DNS records to fetch per request
+            - --cloudflare-region-key="eu" # (optional) configure which region can decrypt HTTPS requests
           env:
             - name: CF_API_KEY
               valueFrom:
@@ -299,3 +301,9 @@ $ kubectl delete -f externaldns.yaml
 ## Setting cloudflare-proxied on a per-ingress basis
 
 Using the `external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"` annotation on your ingress, you can specify if the proxy feature of Cloudflare should be enabled for that record. This setting will override the global `--cloudflare-proxied` setting.
+
+## Setting cloudflare-region-key to configure regional services
+
+Using the `external-dns.alpha.kubernetes.io/cloudflare-region-key` annotation on your ingress, you can restrict which data centers can decrypt and serve HTTPS traffic. A list of available options can be seen [here](https://developers.cloudflare.com/data-localization/regional-services/get-started/).
+
+If not set the value will default to `global`.
