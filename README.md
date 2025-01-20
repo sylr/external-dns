@@ -15,6 +15,10 @@ hide:
 
 ExternalDNS synchronizes exposed Kubernetes Services and Ingresses with DNS providers.
 
+## Documentation
+
+This README is a part of the complete documentation, available [here](https://kubernetes-sigs.github.io/external-dns/).
+
 ## What It Does
 
 Inspired by [Kubernetes DNS](https://github.com/kubernetes/dns), Kubernetes' cluster-internal DNS server, ExternalDNS makes Kubernetes resources discoverable via public DNS servers. Like KubeDNS, it retrieves a list of resources (Services, Ingresses, etc.) from the [Kubernetes API](https://kubernetes.io/docs/api/) to determine a desired list of DNS records. *Unlike* KubeDNS, however, it's not a DNS server itself, but merely configures other DNS providers accordingly—e.g. [AWS Route 53](https://aws.amazon.com/route53/) or [Google Cloud DNS](https://cloud.google.com/dns/docs/).
@@ -32,14 +36,10 @@ ExternalDNS allows you to keep selected zones (via `--domain-filter`) synchroniz
 * [AWS Route 53](https://aws.amazon.com/route53/)
 * [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/)
 * [AzureDNS](https://azure.microsoft.com/en-us/services/dns)
-* [BlueCat](https://bluecatnetworks.com)
 * [Civo](https://www.civo.com)
 * [CloudFlare](https://www.cloudflare.com/dns)
-* [RcodeZero](https://www.rcodezero.at/)
 * [DigitalOcean](https://www.digitalocean.com/products/networking)
 * [DNSimple](https://dnsimple.com/)
-* [Infoblox](https://www.infoblox.com/products/dns/)
-* [Dyn](https://dyn.com/dns/)
 * [OpenStack Designate](https://docs.openstack.org/designate/latest/)
 * [PowerDNS](https://www.powerdns.com/)
 * [CoreDNS](https://coredns.io/)
@@ -49,14 +49,11 @@ ExternalDNS allows you to keep selected zones (via `--domain-filter`) synchroniz
 * [RFC2136](https://tools.ietf.org/html/rfc2136)
 * [NS1](https://ns1.com/)
 * [TransIP](https://www.transip.eu/domain-name/)
-* [VinylDNS](https://www.vinyldns.io)
-* [Vultr](https://www.vultr.com)
 * [OVH](https://www.ovh.com)
 * [Scaleway](https://www.scaleway.com)
 * [Akamai Edge DNS](https://learn.akamai.com/en-us/products/cloud_security/edge_dns.html)
 * [GoDaddy](https://www.godaddy.com)
 * [Gandi](https://www.gandi.net)
-* [ANS Group SafeDNS](https://portal.ans.co.uk/safedns/)
 * [IBM Cloud DNS](https://www.ibm.com/cloud/dns)
 * [TencentCloud PrivateDNS](https://cloud.tencent.com/product/privatedns)
 * [TencentCloud DNSPod](https://cloud.tencent.com/product/cns)
@@ -86,8 +83,11 @@ Known providers using webhooks:
 | GleSYS | https://github.com/glesys/external-dns-glesys |
 | Hetzner | https://github.com/mconfalonieri/external-dns-hetzner-webhook |
 | IONOS | https://github.com/ionos-cloud/external-dns-ionos-webhook |
+| Infoblox | https://github.com/AbsaOSS/external-dns-infoblox-webhook |
 | Netcup | https://github.com/mrueg/external-dns-netcup-webhook |
+| RouterOS | https://github.com/benfiola/external-dns-routeros-provider |
 | STACKIT | https://github.com/stackitcloud/external-dns-stackit-webhook |
+| Unifi | https://github.com/kashalls/external-dns-unifi-webhook |
 
 ## Status of in-tree providers
 
@@ -110,14 +110,10 @@ The following table clarifies the current status of the providers according to t
 | AWS Cloud Map | Beta | |
 | Akamai Edge DNS | Beta | |
 | AzureDNS | Stable | |
-| BlueCat | Alpha | @seanmalloy  @vinny-sabatini |
 | Civo | Alpha | @alejandrojnm |
 | CloudFlare | Beta | |
-| RcodeZero | Alpha | |
 | DigitalOcean | Alpha | |
 | DNSimple | Alpha | |
-| Infoblox | Alpha | @saileshgiri |
-| Dyn | Alpha | |
 | OpenStack Designate | Alpha | |
 | PowerDNS | Alpha | |
 | CoreDNS | Alpha | |
@@ -127,15 +123,12 @@ The following table clarifies the current status of the providers according to t
 | RFC2136 | Alpha | |
 | NS1 | Alpha | |
 | TransIP | Alpha | |
-| VinylDNS | Alpha | |
 | RancherDNS | Alpha | |
 | OVH | Alpha | |
 | Scaleway DNS | Alpha | @Sh4d1 |
-| Vultr | Alpha | |
 | UltraDNS | Alpha | |
 | GoDaddy | Alpha | |
 | Gandi | Alpha | @packi |
-| SafeDNS | Alpha | @assureddt |
 | IBMCloud | Alpha | @hughhuangzh |
 | TencentCloud | Alpha | @Hyzhou |
 | Plural | Alpha | @michaeljguarino |
@@ -174,18 +167,15 @@ The following tutorials are provided:
 * [Azure Private DNS](docs/tutorials/azure-private-dns.md)
 * [Civo](docs/tutorials/civo.md)
 * [Cloudflare](docs/tutorials/cloudflare.md)
-* [BlueCat](docs/tutorials/bluecat.md)
 * [CoreDNS](docs/tutorials/coredns.md)
 * [DigitalOcean](docs/tutorials/digitalocean.md)
 * [DNSimple](docs/tutorials/dnsimple.md)
-* [Dyn](docs/tutorials/dyn.md)
 * [Exoscale](docs/tutorials/exoscale.md)
 * [ExternalName Services](docs/tutorials/externalname.md)
 * Google Kubernetes Engine
 	* [Using Google's Default Ingress Controller](docs/tutorials/gke.md)
 	* [Using the Nginx Ingress Controller](docs/tutorials/nginx-ingress.md)
 * [Headless Services](docs/tutorials/hostport.md)
-* [Infoblox](docs/tutorials/infoblox.md)
 * [Istio Gateway Source](docs/tutorials/istio.md)
 * [Kubernetes Security Context](docs/tutorials/security-context.md)
 * [Linode](docs/tutorials/linode.md)
@@ -196,18 +186,14 @@ The following tutorials are provided:
 * [OpenStack Designate](docs/tutorials/designate.md)
 * [Oracle Cloud Infrastructure (OCI) DNS](docs/tutorials/oracle.md)
 * [PowerDNS](docs/tutorials/pdns.md)
-* [RcodeZero](docs/tutorials/rcodezero.md)
 * [RancherDNS (RDNS)](docs/tutorials/rdns.md)
 * [RFC2136](docs/tutorials/rfc2136.md)
 * [TransIP](docs/tutorials/transip.md)
-* [VinylDNS](docs/tutorials/vinyldns.md)
 * [OVH](docs/tutorials/ovh.md)
 * [Scaleway](docs/tutorials/scaleway.md)
-* [Vultr](docs/tutorials/vultr.md)
 * [UltraDNS](docs/tutorials/ultradns.md)
 * [GoDaddy](docs/tutorials/godaddy.md)
 * [Gandi](docs/tutorials/gandi.md)
-* [SafeDNS](docs/tutorials/UKFast_SafeDNS.md)
 * [IBM Cloud](docs/tutorials/ibmcloud.md)
 * [Nodes as source](docs/tutorials/nodes.md)
 * [TencentCloud](docs/tutorials/tencentcloud.md)
@@ -279,7 +265,7 @@ Now you can experiment and watch how ExternalDNS makes sure that your DNS record
 * Add another Service to create more DNS records.
 * Remove Services to clean up your managed zone.
 
-The [tutorials](docs/tutorials) section contains examples, including Ingress resources, and shows you how to set up ExternalDNS in different environments such as other cloud providers and alternative Ingress controllers.
+The **tutorials** section contains examples, including Ingress resources, and shows you how to set up ExternalDNS in different environments such as other cloud providers and alternative Ingress controllers.
 
 # Note
 
@@ -301,7 +287,7 @@ show us what you can do!
 
 The external-dns project is currently in need of maintainers for specific DNS providers. Ideally each provider
 would have at least two maintainers. It would be nice if the maintainers run the provider in production, but it
-is not strictly required. Provider listed [here](https://github.com/kubernetes-sigs/external-dns#status-of-providers)
+is not strictly required. Provider listed [here](https://github.com/kubernetes-sigs/external-dns#status-of-in-tree-providers)
 that do not have a maintainer listed are in need of assistance.
 
 Read the [contributing guidelines](CONTRIBUTING.md) and have a look at [the contributing docs](docs/contributing/getting-started.md) to learn about building the project, the project structure, and the purpose of each package.
